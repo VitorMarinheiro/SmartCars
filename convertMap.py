@@ -54,7 +54,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Carrega imagem da pista e dos carros
 background_surface = pygame.image.load("assets/pista3.png").convert()
-image = pygame.image.load("assets/car_15_2.png")
+image = pygame.image.load("assets/car_1.png")
 
 # Define as coordenadas x e y, e as dimensões do retângulo
 rect_x = 200

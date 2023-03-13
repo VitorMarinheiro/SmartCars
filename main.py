@@ -11,11 +11,11 @@ class Main:
     def __init__(self):
         """Inicializador das variáveis necessárias"""
 
-        self.window = pygame.display.set_mode([1280, 640])
-        pygame.display.set_caption("Smart Car")
-        # pygame.display.set_icon(
-        #     pygame.transform.scale(pygame.image.load("assets/bird0_2.png"), (555, 555))
-        # )
+        self.window = pygame.display.set_mode([700, 700])
+        pygame.display.set_caption("Smart Cars")
+        pygame.display.set_icon(
+            pygame.transform.scale(pygame.image.load("assets/car_1.png"), (555, 555))
+        )
 
         self.loop = True
         self.fps = pygame.time.Clock()
@@ -31,7 +31,7 @@ class Main:
     def draw(self):
         """Insere na janela do pygame todos os elementos necessários abaixo do self.game"""
         self.game.draw(self.window)
-        self.game.update()
+        self.game.update(self.window)
 
     def update(self):
         """Realiza o update do pygame de acordo com o fps definido"""
