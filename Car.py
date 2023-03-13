@@ -7,7 +7,7 @@ class Car(pygame.sprite.Sprite):
         super().__init__(*groups)
 
         self.janela = janela
-        self.image = pygame.image.load("assets/car.png")
+        self.image = pygame.image.load("assets/_56.png")
         self.rect = self.image.get_rect()
         self.height = 50
         self.width = 22
