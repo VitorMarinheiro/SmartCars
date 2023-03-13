@@ -3,7 +3,7 @@ import random
 import pygame
 import pygame.gfxdraw
 
-showGrades1 = False
+showGrades1 = True
 
 
 def draw_lines_to_edge(screen, colorLine, x1, y1, angle):
@@ -92,7 +92,14 @@ class Car(pygame.sprite.Sprite):
 
     def update(self, window):
 
+        self.ticks += 1
+
+        if self.ticks >= 200:
+            self.play = False
+            self.speed = 0
+
         if self.play:
+
             # Retorna o angulo real dentro dos 360
             self.angle %= 360
 
@@ -120,12 +127,12 @@ class Car(pygame.sprite.Sprite):
                                           self.rect[1] - int(img_copy.get_height() / 2) + + img_copy.get_height() / 2,
                                           self.angle * -1)
 
-            if min(self.distances) <= img_copy.get_width() / 2:
+            if min(self.distances) <= (self.rect.height / 2) - 5:
                 self.speed = 0
                 self.play = False
 
             # Atualizar
-            # window.blit(img_copy, (self.rect[0] - int(img_copy.get_width() / 2), self.rect[1] - int(img_copy.get_height() / 2)))
+            window.blit(img_copy, (self.rect[0] - int(img_copy.get_width() / 2), self.rect[1] - int(img_copy.get_height() / 2)))
 
 
 class Text:

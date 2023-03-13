@@ -14,7 +14,7 @@ class Game:
     def __init__(self):
 
         self.window = 0
-        self.tam_population = 5
+        self.tam_population = 1
         self.generation = 0
         self.best_score = 0
         self.score = 0
@@ -51,15 +51,15 @@ class Game:
 
                     # Aplica resultados da RN
                     if output[0] > 1:
-                        car.speed += 0.2
+                        car.speed += 1
                         if car.speed > 5:
                             car.speed = 5
                         print('Acelerando')
-                    if output[1] > 1:
-                        car.speed -= 0.2
-                        print('Freando')
-                        if car.speed < 1:
-                            car.speed = 1
+                    # if output[1] > 1:
+                    #     car.speed -= 0.2
+                    #     print('Freando')
+                    #     if car.speed < 1:
+                    #         car.speed = 1
                     if output[2] > 1:
                         print('Esquerda')
                         car.angle += 0.1
@@ -77,6 +77,7 @@ class Game:
                                     self.best_score = self.score_value
         else:
 
+            print('---------------')
             # Delay para mostrar animacao de ultimo morto
             self.all_dead = True
             self.count_dead_time += 1
