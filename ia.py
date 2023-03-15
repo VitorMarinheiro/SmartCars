@@ -1,9 +1,16 @@
 import random
 import numpy as np
+import configparser
+config = configparser.ConfigParser()
+config.read('config.properties')
 
 
 class LayerDense:
+
     def __init__(self, n_inputs, n_neurons):
+
+        self.learningRate = float(config.get('geracoes', 'learningRate'))
+
         # Cria a matriz de pesos utilizando as dimensoes de inputs e neuronios
         # Multiplicamos por 0.10 para manter os numeros mais proximos do zero (-1 ao +1)
         self.weights = 0.10 * np.random.randn(n_inputs, n_neurons)
@@ -16,10 +23,13 @@ class LayerDense:
             rand = random.randint(0, 3)
             if rand == 0:
                 # Soma Aleatoria
-                self.weights[i] += random.uniform(-0.2, 0.2)
+                self.weights[i] += random.uniform(self.learningRate*-1, self.learningRate)
             elif rand == 1:
                 # Multiplicacao Aleatoria
-                self.weights[i] *= random.uniform(0.8, 1.2)
+                self.weights[i] *= random.uniform(self.learningRate - 1, self.learningRate + 1)
+            # elif rand == 2:
+            #     # Valor Aleatorio
+            #     self.weights[i] *= random.uniform(0.0, 1.0)
 
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
@@ -32,3 +42,5 @@ class ActivationReLu:
         # Caso ele seja maior que 0, será ele mesmo.
         # return np.tanh(inputs)
         return np.maximum(0, inputs)
+
+
