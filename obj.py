@@ -10,6 +10,8 @@ config.read('config.properties')
 
 showGrades1 = False #config.get('pygame', 'showlines')
 
+biggestScorePossible = 2420 - int((2420*0.01))
+
 
 def draw_lines_to_edge(screen, matrizPixels, colorLine, x1, y1, angle):
     x2 = x1 + 5000 * math.cos(angle * math.pi / 180)
@@ -84,6 +86,7 @@ class Car(pygame.sprite.Sprite):
         self.matrizCusto = matrizCusto
         self.restoY = 0
         self.restoX = 0
+        self.maxTick = 3000
 
     def copy(self):
         new_car = Car("assets/car" + self.imgPicker + "_0.png", self.groups())
@@ -96,13 +99,14 @@ class Car(pygame.sprite.Sprite):
         new_car.distances = self.distances
         new_car.matrizPixels = self.matrizPixels
         new_car.matrizCusto = self.matrizCusto
+        new_car.maxTick = self.maxTick
         return new_car
 
     def update(self, window):
 
         self.ticks += 1
 
-        if self.ticks >= 3000:
+        if self.ticks >= self.maxTick:
             self.matar_carro()
 
         if self.play:
@@ -153,6 +157,11 @@ class Car(pygame.sprite.Sprite):
 
         if not self.play:
             self.fitness = self.matrizCusto[self.rect.center]
+
+            # Prioriza carros que chegaram mais rapido
+            if self.fitness >= biggestScorePossible:
+                print(self.ticks)
+                self.fitness += 1000 / self.ticks
 
     def matar_carro(self):
         self.play = False
@@ -221,7 +230,7 @@ class Chart:
 
     def update(self, generation, histY):
 
-        generation -= 1
+        # generation -= 1
 
         if len(histY) > 0:
             # Generate random data points
@@ -241,7 +250,7 @@ class Chart:
                     y1 = int(100 - (y[i] / max_y) * 80)
                     x2 = round(((i + 1) * self.width) / generation)
                     y2 = int(100 - (y[i + 1] / max_y) * 80)
-                    pygame.gfxdraw.line(self.chart_surface, x1, y1, x2, y2, (255, 255, 255))
+                    pygame.gfxdraw.line(self.chart_surface, x1, y1, x2, y2, (150, 150, 150))
 
                 # Draw a circle at each data point
                 for i in range(len(x)):

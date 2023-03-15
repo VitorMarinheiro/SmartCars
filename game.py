@@ -35,7 +35,7 @@ class Game:
         self.count_dead_time = 0
         self.re_lu = ActivationReLu()
         self.graph = Chart(50, 580, 100, 400)
-        self.hist_y = [0]
+        self.hist_y = []
 
     def draw(self, window):
         self.window = window
@@ -70,8 +70,8 @@ class Game:
                     # Aplica resultados da RN
                     if output[0] > 0:
                         car.speed += 0.2
-                        if car.speed > 3:
-                            car.speed = 3
+                        if car.speed > 5:
+                            car.speed = 5
                     if output[1] > 0:
                         car.speed -= 0.2
                         if car.speed < 1:
