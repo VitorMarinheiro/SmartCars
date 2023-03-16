@@ -116,7 +116,7 @@ def desenhar_custos():
 def capturar_matriz_de_pixels():
     # Abre a imagem na janela
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    background_surface = pygame.image.load("assets/pista4_separada.png").convert()
+    background_surface = pygame.image.load("assets/pista4.png").convert()
     screen.blit(background_surface, (0, 0))
 
     # Captura a matriz 2d de cores
@@ -145,5 +145,4 @@ def get_matriz_custo():
 # capturar_matriz_de_pixels()
 # wavefront(start, goal, get_matriz_pixels())
 # desenhar_custos()
-
-print(get_matriz_custo()[560, 513])
+# #

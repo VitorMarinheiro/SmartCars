@@ -8,7 +8,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.properties')
 
-showGrades1 = False #config.get('pygame', 'showlines')
+showGrades1 = True #config.get('pygame', 'showlines')
 
 biggestScorePossible = 2420 - int((2420*0.01))
 
@@ -46,11 +46,13 @@ def draw_lines_to_edge(screen, matrizPixels, colorLine, x1, y1, angle):
 
 def drawAllLines(screen, matrizPixels, carx, cary, car_angle):
     distances = [draw_lines_to_edge(screen, matrizPixels, (255, 255, 0), carx, cary, car_angle + 270),
-                 draw_lines_to_edge(screen, matrizPixels, (0, 12, 255), carx, cary, car_angle + 305),
-                 draw_lines_to_edge(screen, matrizPixels, (255, 102, 0), carx, cary, car_angle + 345),
+                 draw_lines_to_edge(screen, matrizPixels, (255, 0, 0), carx, cary, car_angle + 295),
+                 draw_lines_to_edge(screen, matrizPixels, (0, 12, 255), carx, cary, car_angle + 330),
+                 draw_lines_to_edge(screen, matrizPixels, (255, 102, 0), carx, cary, car_angle + 350),
                  draw_lines_to_edge(screen, matrizPixels, (255, 255, 255), carx, cary, car_angle),
-                 draw_lines_to_edge(screen, matrizPixels, (102, 51, 0), carx, cary, car_angle + 15),
-                 draw_lines_to_edge(screen, matrizPixels, (0, 102, 255), carx, cary, car_angle + 45),
+                 draw_lines_to_edge(screen, matrizPixels, (102, 51, 0), carx, cary, car_angle + 10),
+                 draw_lines_to_edge(screen, matrizPixels, (153, 153, 102), carx, cary, car_angle + 30),
+                 draw_lines_to_edge(screen, matrizPixels, (0, 102, 255), carx, cary, car_angle + 65),
                  draw_lines_to_edge(screen, matrizPixels, (255, 51, 204), carx, cary, car_angle + 90)]
     return distances
 

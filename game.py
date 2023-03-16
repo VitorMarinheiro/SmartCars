@@ -62,7 +62,8 @@ class Game:
                 if car.play:
                     vivos += 1
                     car.update(self.window)
-                    car.dense1.forward(np.array(car.distances))
+                    inputs = car.distances
+                    car.dense1.forward(np.array(inputs))
                     car.dense2.forward(self.re_lu.forward(car.dense1.output))
                     output = self.re_lu.forward(car.dense2.output)
                     output = output[0].tolist()
@@ -110,9 +111,8 @@ class Game:
                     self.best_score = self.score
 
                 # Inicia um novo game
+                print(self.generation, self.best_score)
                 self.start_game(self.population)
-
-        # Update sprites
 
         # Captura eventos de clique
         for event in pygame.event.get():
@@ -133,7 +133,7 @@ class Game:
         self.texts.append(
             Text(15, msgBestScoreHist + str(self.get_score_percent(self.best_score)), "OpenSans-Regular", 60, 560))
         self.button_grades = Button(250, 480, 200, 80, "GRADES")
-        self.bg = Obj("assets/pista4_separada.png", 0, 0, self.background)
+        self.bg = Obj("assets/pista4.png", 0, 0, self.background)
 
         # Reseta a populacao
         new_population = []
@@ -149,8 +149,8 @@ class Game:
             if index_population == 0:
                 new_car.image = pygame.image.load("assets/car_5.png")
 
-            new_car.dense1 = LayerDense(7, 8)
-            new_car.dense2 = LayerDense(8, 4)
+            new_car.dense1 = LayerDense(9, 10)
+            new_car.dense2 = LayerDense(10, 4)
 
             # Caso seja uma segunda rodada ou adiante, copia os pesos
             if len(listOfCars) > 0:
