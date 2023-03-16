@@ -68,11 +68,11 @@ class Obj(pygame.sprite.Sprite):
 
 class Car(pygame.sprite.Sprite):
 
-    def __init__(self, img, matrizPixels, matrizCusto, *groups):
+    def __init__(self, matrizPixels, matrizCusto, *groups):
         super().__init__(*groups)
 
-        self.imgPicker = str(random.randint(0, 1))
-        self.image = pygame.image.load(img)
+        self.imgPicker = str(random.randint(0, 3))
+        self.image = pygame.image.load("assets/car_"+self.imgPicker+".png")
         self.rect = self.image.get_rect()
         self.rect[0] = 315
         self.rect[1] = 415
@@ -114,6 +114,7 @@ class Car(pygame.sprite.Sprite):
             # Retorna o angulo real dentro dos 360
             self.angle %= 360
 
+            # self.angle = 7
             # Converte o ângulo para radianos
             angle_rad = math.radians(self.angle)
 
@@ -122,20 +123,62 @@ class Car(pygame.sprite.Sprite):
             delta_y = self.speed * math.sin(angle_rad)
 
             # Atualiza as coordenadas x e y do retângulo
-            self.rect[0] += round(delta_x) + self.restoX
-            self.rect[1] += round(delta_y) + self.restoY
+            self.rect[0] += round(delta_x)
+            self.rect[1] += round(delta_y)
 
-            # self.restoX = round(delta_x) - delta_x
-            # self.restoY = round(delta_y) - delta_y
+            self.restoX += round(delta_x) - delta_x
+            self.restoY += round(delta_y) - delta_y
 
-            # Gira o carro de acordo com a inclinacao
-            self.rotateCar(window)
+            # Captura quando os angulos nao sao suficientes para mudanca de direcao
+            if self.restoX >= 1:
+                self.rect[0] -= 1
+                self.restoX -= 1
+
+                if self.matrizCusto[self.rect.center] == 0:
+                    self.rect[0] -= round(delta_x)
+                    self.rect[1] -= round(delta_y)
+                    self.rect[0] += 1
+                    self.matar_carro()
+
+            if self.restoX <= -1:
+                self.rect[0] += 1
+                self.restoX += 1
+
+                if self.matrizCusto[self.rect.center] == 0:
+                    self.rect[0] -= round(delta_x)
+                    self.rect[1] -= round(delta_y)
+                    self.rect[0] -= 1
+                    self.matar_carro()
+
+            if self.restoY >= 1:
+                self.rect[1] -= 1
+                self.restoY -= 1
+
+                if self.matrizCusto[self.rect.center] == 0:
+                    self.rect[0] -= round(delta_x)
+                    self.rect[1] -= round(delta_y)
+                    self.rect[1] += 1
+                    self.matar_carro()
+
+            if self.restoY <= -1:
+                self.rect[1] += 1
+                self.restoY += 1
+
+                if self.matrizCusto[self.rect.center] == 0:
+                    self.rect[0] -= round(delta_x)
+                    self.rect[1] -= round(delta_y)
+                    self.rect[1] -= 1
+                    self.matar_carro()
 
             # Caso o carro vá parar fora da pista
             if self.matrizCusto[self.rect.center] == 0:
                 self.rect[0] -= round(delta_x)
                 self.rect[1] -= round(delta_y)
                 self.matar_carro()
+
+            # Gira o carro de acordo com a inclinacao
+            self.rotateCar(window)
+
 
     def rotateCar(self, window):
 
@@ -160,8 +203,7 @@ class Car(pygame.sprite.Sprite):
 
             # Prioriza carros que chegaram mais rapido
             if self.fitness >= biggestScorePossible:
-                print(self.ticks)
-                self.fitness += 1000 / self.ticks
+                self.fitness += 100000 / self.ticks
 
     def matar_carro(self):
         self.play = False

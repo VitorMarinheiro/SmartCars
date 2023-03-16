@@ -26,7 +26,7 @@ class LayerDense:
                 self.weights[i] += random.uniform(self.learningRate*-1, self.learningRate)
             elif rand == 1:
                 # Multiplicacao Aleatoria
-                self.weights[i] *= random.uniform(self.learningRate - 1, self.learningRate + 1)
+                self.weights[i] *= random.uniform(1 - self.learningRate, self.learningRate + 1)
             # elif rand == 2:
             #     # Valor Aleatorio
             #     self.weights[i] *= random.uniform(0.0, 1.0)

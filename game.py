@@ -74,8 +74,8 @@ class Game:
                             car.speed = 5
                     if output[1] > 0:
                         car.speed -= 0.2
-                        if car.speed < 1:
-                            car.speed = 1
+                        if car.speed < 2:
+                            car.speed = 2
                     if output[2] > 0:
                         # print('Esquerda')
                         car.angle += 1.5 * car.speed
@@ -104,7 +104,6 @@ class Game:
                 self.count_dead_time = 0
                 self.all_dead = False
                 self.graph.update(self.generation, self.hist_y)
-                print(self.generation, ' --------------- ', self.score, ' ---------------')
 
                 # Atualiza o melhor score historico
                 if self.score > self.best_score:
@@ -144,9 +143,16 @@ class Game:
         matrizCusto = get_matriz_custo()
 
         for index_population in range(0, self.tam_population):
-            new_car = Car("assets/car_1.png", matrizPixels, matrizCusto, self.car_group)
+            new_car = Car(matrizPixels, matrizCusto, self.car_group)
+
+            # Pinta o melhor carro da geracao anterior de BRANCO
+            if index_population == 0:
+                new_car.image = pygame.image.load("assets/car_5.png")
+
             new_car.dense1 = LayerDense(7, 8)
             new_car.dense2 = LayerDense(8, 4)
+
+            # Caso seja uma segunda rodada ou adiante, copia os pesos
             if len(listOfCars) > 0:
                 new_car.dense1.weights = listOfCars[0].dense1.weights.copy()
                 new_car.dense2.weights = listOfCars[0].dense2.weights.copy()

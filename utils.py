@@ -145,3 +145,5 @@ def get_matriz_custo():
 # capturar_matriz_de_pixels()
 # wavefront(start, goal, get_matriz_pixels())
 # desenhar_custos()
+
+print(get_matriz_custo()[560, 513])
