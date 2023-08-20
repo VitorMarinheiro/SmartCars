@@ -1,7 +1,11 @@
 from collections import deque
 import numpy as np
 import pygame
-import matplotlib.pyplot as plt
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.properties')
+
 
 GREY = 4285756275
 start = (315, 415)
@@ -11,7 +15,11 @@ SCREEN_HEIGHT = 700
 
 
 # Busca do custo de todos os pixels do mapa utilizando o algoritmo wavefront
-def wavefront(start, goal, matrix):
+def wavefront():
+
+    # captura matriz de pixels
+    matrix = get_matriz_pixels()
+
     # Crie uma matriz de custos com todos os elementos iguais a zero
     cost_matrix = [[0 for _ in range(SCREEN_WIDTH)] for _ in range(SCREEN_HEIGHT)]
 
@@ -116,7 +124,7 @@ def desenhar_custos():
 def capturar_matriz_de_pixels():
     # Abre a imagem na janela
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    background_surface = pygame.image.load("assets/pista4.png").convert()
+    background_surface = pygame.image.load("assets/"+str(config.get('pygame', 'track'))+".png").convert()
     screen.blit(background_surface, (0, 0))
 
     # Captura a matriz 2d de cores

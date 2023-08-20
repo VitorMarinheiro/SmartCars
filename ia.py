@@ -42,5 +42,3 @@ class ActivationReLu:
         # Caso ele seja maior que 0, será ele mesmo.
         # return np.tanh(inputs)
         return np.maximum(0, inputs)
-
-

@@ -1,5 +1,4 @@
 from operator import attrgetter
-import random
 import pygame
 import numpy as np
 import configparser
@@ -111,7 +110,6 @@ class Game:
                     self.best_score = self.score
 
                 # Inicia um novo game
-                print(self.generation, self.best_score)
                 self.start_game(self.population)
 
         # Captura eventos de clique
@@ -133,7 +131,7 @@ class Game:
         self.texts.append(
             Text(15, msgBestScoreHist + str(self.get_score_percent(self.best_score)), "OpenSans-Regular", 60, 560))
         self.button_grades = Button(250, 480, 200, 80, "GRADES")
-        self.bg = Obj("assets/pista4.png", 0, 0, self.background)
+        self.bg = Obj("assets/"+str(config.get('pygame', 'track'))+".png", 0, 0, self.background)
 
         # Reseta a populacao
         new_population = []
@@ -149,8 +147,8 @@ class Game:
             if index_population == 0:
                 new_car.image = pygame.image.load("assets/car_5.png")
 
-            new_car.dense1 = LayerDense(9, 10)
-            new_car.dense2 = LayerDense(10, 4)
+            new_car.dense1 = LayerDense(9, 5)
+            new_car.dense2 = LayerDense(5, 4)
 
             # Caso seja uma segunda rodada ou adiante, copia os pesos
             if len(listOfCars) > 0:

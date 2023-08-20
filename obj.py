@@ -1,6 +1,5 @@
 import math
 import random
-
 import numpy as np
 import pygame
 import pygame.gfxdraw
@@ -8,7 +7,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.properties')
 
-showGrades1 = True #config.get('pygame', 'showlines')
+showGrades1 = False #config.get('pygame', 'showlines')
 
 biggestScorePossible = 2420 - int((2420*0.01))
 
